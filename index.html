@@ -20,79 +20,83 @@
     background:var(--bg); color:var(--txt);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
     padding:env(safe-area-inset-top) 14px calc(env(safe-area-inset-bottom) + 14px);
-    max-width:520px; margin:0 auto; min-height:100vh;
+    max-width:540px; margin:0 auto; min-height:100vh;
   }
-  header{padding:18px 2px 12px}
+  header{padding:18px 2px 10px}
   h1{font-size:1.15rem;font-weight:700;margin:0;letter-spacing:.2px}
   .sub{color:var(--muted);font-size:.8rem;margin-top:2px}
-  .controls{display:flex;gap:10px;margin:14px 0}
-  button{
-    font-family:inherit;font-size:1rem;font-weight:600;border:none;
-    border-radius:var(--radius);padding:16px;cursor:pointer;flex:1;
-    color:var(--txt);transition:transform .05s,opacity .15s;
-  }
+  .sub.offline{color:var(--warn)}
+
+  .tabs{display:flex;gap:6px;background:var(--panel);border:1px solid var(--line);
+        border-radius:var(--radius);padding:5px;margin:14px 0}
+  .tab{flex:1;text-align:center;padding:11px 6px;border-radius:11px;font-size:.9rem;
+       font-weight:600;color:var(--muted);cursor:pointer;transition:background .15s,color .15s}
+  .tab.active{background:var(--accent);color:#04121f}
+
+  .typebox{display:flex;gap:9px;margin-bottom:6px}
+  input[type=text]{flex:1;font-family:inherit;font-size:1.05rem;padding:15px;border-radius:var(--radius);
+    border:1px solid var(--line);background:var(--panel-2);color:var(--txt);min-width:0}
+  input:focus{outline:none;border-color:var(--accent)}
+  .hint{color:var(--muted);font-size:.78rem;margin:2px 2px 0}
+
+  button{font-family:inherit;font-size:1rem;font-weight:600;border:none;border-radius:var(--radius);
+         padding:15px;cursor:pointer;color:var(--txt);transition:transform .05s,opacity .15s}
   button:active{transform:scale(.97)}
   .btn-primary{background:var(--accent);color:#04121f}
   .btn-secondary{background:var(--panel-2);border:1px solid var(--line)}
   button:disabled{opacity:.45}
-  #reader{
-    width:100%;aspect-ratio:1/1;background:#000;border-radius:var(--radius);
-    overflow:hidden;border:1px solid var(--line);position:relative;
-  }
+  .controls{display:flex;gap:10px;margin:4px 0 0}
+  .controls button{flex:1}
+
+  #reader{width:100%;aspect-ratio:1/1;background:#000;border-radius:var(--radius);
+          overflow:hidden;border:1px solid var(--line);position:relative}
   #reader video{object-fit:cover !important}
-  #reader.idle::after{
-    content:"Câmera desligada";position:absolute;inset:0;display:flex;
-    align-items:center;justify-content:center;color:var(--muted);font-size:.9rem;
-  }
-  /* esconde a UI verbosa nativa do html5-qrcode */
+  #reader.idle::after{content:"Câmera desligada";position:absolute;inset:0;display:flex;
+          align-items:center;justify-content:center;color:var(--muted);font-size:.9rem}
   #reader img[alt="Info icon"], #reader__dashboard_section_csr span,
   #reader__status_span, #reader__header_message{display:none !important}
   #reader__dashboard{padding:6px !important}
 
+  .matchlist{margin-top:10px}
+  .match{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+         padding:13px 15px;margin-bottom:7px;cursor:pointer;display:flex;
+         justify-content:space-between;align-items:center;gap:10px}
+  .match:active{background:var(--panel-2)}
+  .match .mn{font-size:.92rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .match .mp{color:var(--accent);font-weight:700;white-space:nowrap}
+
   .result{margin-top:16px}
-  .card{
-    background:var(--panel);border:1px solid var(--line);
-    border-radius:var(--radius);padding:18px;
-  }
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
   .card h2{font-size:1.25rem;margin:0 0 4px;line-height:1.25}
   .ids{color:var(--muted);font-size:.78rem;margin-bottom:14px;word-break:break-all}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .cell{background:var(--panel-2);border-radius:12px;padding:12px}
   .cell .lbl{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.5px}
   .cell .val{font-size:1.25rem;font-weight:700;margin-top:3px}
-  .cell.wide{grid-column:1/-1}
-  .val.ok{color:var(--ok)} .val.bad{color:var(--bad)}
-  .cost-flag{
-    grid-column:1/-1;border-radius:12px;padding:11px 14px;font-size:.85rem;
-    font-weight:600;display:flex;align-items:center;gap:8px;
-  }
-  .cost-flag.ok{background:rgba(46,194,126,.12);color:var(--ok);border:1px solid rgba(46,194,126,.3)}
-  .cost-flag.bad{background:rgba(255,93,93,.12);color:var(--bad);border:1px solid rgba(255,93,93,.3)}
-  .cost-flag.eq{background:var(--panel-2);color:var(--muted);border:1px solid var(--line)}
+  .val.ok{color:var(--ok)} .val.bad{color:var(--bad)} .val.warn{color:var(--warn)}
 
-  .notfound{
-    background:rgba(255,93,93,.12);border:1px solid rgba(255,93,93,.35);
-    color:var(--bad);border-radius:var(--radius);padding:20px;text-align:center;
-    font-weight:600;
-  }
+  .flag{grid-column:1/-1;border-radius:12px;padding:11px 14px;font-size:.85rem;font-weight:600}
+  .flag.ok{background:rgba(46,194,126,.12);color:var(--ok);border:1px solid rgba(46,194,126,.3)}
+  .flag.bad{background:rgba(255,93,93,.12);color:var(--bad);border:1px solid rgba(255,93,93,.3)}
+  .flag.warn{background:rgba(255,176,32,.12);color:var(--warn);border:1px solid rgba(255,176,32,.3)}
+  .flag.eq{background:var(--panel-2);color:var(--muted);border:1px solid var(--line)}
+
+  .notfound{background:rgba(255,93,93,.12);border:1px solid rgba(255,93,93,.35);color:var(--bad);
+            border-radius:var(--radius);padding:20px;text-align:center;font-weight:600}
   .notfound .code{display:block;color:var(--muted);font-weight:400;font-size:.8rem;margin-top:6px}
 
-  .status{
-    text-align:center;color:var(--muted);font-size:.82rem;margin:12px 0;min-height:1em;
-  }
+  .status{text-align:center;color:var(--muted);font-size:.82rem;margin:12px 0;min-height:1em}
   .status.loading{color:var(--accent)}
 
   .history{margin-top:22px}
   .history h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:0 0 8px}
-  .hist-item{
-    display:flex;justify-content:space-between;align-items:center;gap:10px;
-    background:var(--panel);border:1px solid var(--line);border-radius:12px;
-    padding:11px 14px;margin-bottom:7px;
-  }
+  .hist-item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);
+             border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin-bottom:7px}
   .hist-item .hname{font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .hist-item .hprice{font-weight:700;color:var(--accent);white-space:nowrap}
   .empty{color:var(--muted);font-size:.85rem}
-  @media (prefers-reduced-motion: reduce){button{transition:none}}
+  .hidden{display:none !important}
+  @media (prefers-reduced-motion: reduce){button,.tab{transition:none}}
 </style>
 </head>
 <body>
@@ -101,14 +105,36 @@
   <div class="sub" id="loaded-info">Carregando base de dados…</div>
 </header>
 
-<div class="controls">
-  <button class="btn-primary" id="btn-start" disabled>Iniciar câmera</button>
+<div class="tabs">
+  <div class="tab active" data-mode="type">Digitar</div>
+  <div class="tab" data-mode="scan">Scan</div>
+  <div class="tab" data-mode="photo">Foto</div>
+</div>
+
+<section id="panel-type">
+  <div class="typebox">
+    <input type="text" id="input-code" inputmode="text" autocomplete="off"
+           placeholder="Código de barras ou nome do produto" enterkeyhint="search">
+    <button class="btn-primary" id="btn-search" style="flex:0 0 auto">Buscar</button>
+  </div>
+  <div class="hint">No PC: clique no campo e use o leitor (ele digita e dá Enter). No celular: digite parte do nome.</div>
+  <div class="matchlist" id="matchlist"></div>
+</section>
+
+<section id="panel-cam" class="hidden">
+  <div id="reader" class="idle"></div>
+  <div class="controls" id="cam-controls">
+    <button class="btn-primary" id="btn-cam-action" disabled>Iniciar câmera</button>
+    <button class="btn-primary hidden" id="btn-capture">Tirar foto do código</button>
+  </div>
+  <div class="hint" id="cam-hint"></div>
+</section>
+
+<div class="controls" style="margin-top:12px">
   <button class="btn-secondary" id="btn-refresh">Atualizar dados</button>
 </div>
 
-<div id="reader" class="idle"></div>
 <div class="status" id="status"></div>
-
 <div class="result" id="result"></div>
 
 <div class="history">
@@ -116,207 +142,261 @@
   <div id="history-list"><div class="empty">Nenhuma consulta ainda.</div></div>
 </div>
 
+<input type="file" id="file-photo" accept="image/*" capture="environment" class="hidden">
+<!-- container isolado e fora de tela para decodificar a foto sem depender do #reader -->
+<div id="photo-scan" style="position:absolute;left:-9999px;width:600px;height:600px"></div>
+
 <script>
 (function(){
   "use strict";
+  var STORAGE_KEY="estoque_dados_v1";
+  var produtos=[], idxEan={}, idxCodigo={};
+  var historico=[];
+  var scanner=null, scanning=false, pausado=false;
+  var modo="type", audioCtx=null;
 
-  // ---- Estado em memória ----
-  var produtos = [];          // lista completa
-  var idxEan = {};            // ean -> índice
-  var idxCodigo = {};         // codigo_sistema -> índice (fallback)
-  var historico = [];         // últimas consultas da sessão
-  var scanner = null;
-  var scanning = false;
-  var pausado = false;
+  var $=function(id){return document.getElementById(id);};
+  var elInfo=$("loaded-info"), elStatus=$("status"), elResult=$("result"),
+      elHist=$("history-list"), elReader=$("reader"),
+      elInput=$("input-code"), elMatch=$("matchlist"),
+      elCamAction=$("btn-cam-action"), elCapture=$("btn-capture"),
+      elFile=$("file-photo"), elCamHint=$("cam-hint"),
+      panelType=$("panel-type"), panelCam=$("panel-cam");
 
-  var elStart   = document.getElementById('btn-start');
-  var elRefresh = document.getElementById('btn-refresh');
-  var elResult  = document.getElementById('result');
-  var elStatus  = document.getElementById('status');
-  var elInfo    = document.getElementById('loaded-info');
-  var elHist    = document.getElementById('history-list');
-  var elReader  = document.getElementById('reader');
+  function setStatus(m,l){elStatus.textContent=m||'';elStatus.className='status'+(l?' loading':'');}
+  function fmtBRL(n){if(n==null||isNaN(n))return'—';
+    return 'R$ '+Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function fmtNum(n){if(n==null||isNaN(n))return'—';
+    return Number(n).toLocaleString('pt-BR',{maximumFractionDigits:2});}
+  function escapeHtml(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+  function normTxt(s){return String(s||'').toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
 
-  function setStatus(msg, loading){
-    elStatus.textContent = msg || '';
-    elStatus.className = 'status' + (loading ? ' loading' : '');
+  // --- bip + vibração ---
+  function feedback(ok){
+    if(navigator.vibrate){try{navigator.vibrate(ok?60:[40,50,40]);}catch(e){}}
+    try{
+      if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+      var o=audioCtx.createOscillator(), g=audioCtx.createGain();
+      o.connect(g); g.connect(audioCtx.destination);
+      o.frequency.value=ok?880:220;
+      g.gain.setValueAtTime(0.0001,audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.25,audioCtx.currentTime+0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001,audioCtx.currentTime+0.18);
+      o.start(); o.stop(audioCtx.currentTime+0.2);
+    }catch(e){}
   }
 
-  function fmtBRL(n){
-    if(n === null || n === undefined || isNaN(n)) return '—';
-    return 'R$ ' + Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-  }
-  function fmtNum(n){
-    if(n === null || n === undefined || isNaN(n)) return '—';
-    return Number(n).toLocaleString('pt-BR',{maximumFractionDigits:2});
+  function indexar(d){
+    produtos=d.produtos||[]; idxEan={}; idxCodigo={};
+    produtos.forEach(function(p,i){
+      if(p.ean) idxEan[String(p.ean)]=i;
+      if(p.codigo_sistema) idxCodigo[String(p.codigo_sistema)]=i;
+    });
+    elInfo.textContent=produtos.length.toLocaleString('pt-BR')+' produtos'+
+      (d.gerado_em?(' • '+d.gerado_em.replace('T',' ')):'');
+    elCamAction.disabled=false;
   }
 
-  // ---- Carregamento do JSON ----
+  function carregarOffline(){
+    try{
+      var raw=localStorage.getItem(STORAGE_KEY);
+      if(raw){var d=JSON.parse(raw); indexar(d);
+        elInfo.className='sub offline'; elInfo.textContent+=' • offline (cache)';
+        setStatus('Usando dados salvos. Toque em "Atualizar dados" com internet.'); return true;}
+    }catch(e){}
+    return false;
+  }
+
   function carregarDados(){
-    setStatus('Carregando dados…', true);
-    elStart.disabled = true;
-    // cache-bust para o botão "Atualizar dados" pegar o arquivo novo do servidor
-    fetch('dados.json?v=' + Date.now(), {cache:'no-store'})
-      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-      .then(function(d){
-        produtos = d.produtos || [];
-        idxEan = {}; idxCodigo = {};
-        produtos.forEach(function(p,i){
-          if(p.ean) idxEan[String(p.ean)] = i;
-          if(p.codigo_sistema) idxCodigo[String(p.codigo_sistema)] = i;
-        });
-        elInfo.textContent = produtos.length.toLocaleString('pt-BR') +
-          ' produtos • atualizado ' + (d.gerado_em ? d.gerado_em.replace('T',' ') : '');
-        elStart.disabled = false;
-        setStatus('Pronto. Toque em "Iniciar câmera".');
-      })
-      .catch(function(e){
-        elInfo.textContent = 'Falha ao carregar dados.json';
-        setStatus('Erro: ' + e.message + '. Verifique se dados.json está na mesma pasta.');
-      });
+    setStatus('Carregando dados…',true); elCamAction.disabled=true;
+    fetch('dados.json?v='+Date.now(),{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+      .then(function(d){ indexar(d); elInfo.className='sub';
+        try{localStorage.setItem(STORAGE_KEY,JSON.stringify(d));}catch(e){}
+        setStatus('Pronto.'); })
+      .catch(function(){ if(!carregarOffline()){
+        elInfo.textContent='Falha ao carregar dados.json';
+        setStatus('Sem internet e sem cache. Abra uma vez com conexão.'); } });
   }
 
-  // ---- Busca de produto pelo código lido ----
-  function buscar(codigo){
-    var c = String(codigo).trim();
-    if(idxEan[c] !== undefined) return produtos[idxEan[c]];
-    // EAN pode vir com zeros à esquerda; tenta normalizar
-    var semZero = c.replace(/^0+/, '');
-    if(idxEan[semZero] !== undefined) return produtos[idxEan[semZero]];
-    if(idxCodigo[c] !== undefined) return produtos[idxCodigo[c]];
+  function buscarPorCodigo(c){
+    c=String(c).trim();
+    if(idxEan[c]!==undefined)return produtos[idxEan[c]];
+    var sz=c.replace(/^0+/,'');
+    if(idxEan[sz]!==undefined)return produtos[idxEan[sz]];
+    if(idxCodigo[c]!==undefined)return produtos[idxCodigo[c]];
     return null;
   }
-
-  // ---- Render do resultado ----
-  function renderProduto(p){
-    var rep = p.custo_reposicao, med = p.custo_medio;
-    var flag = '<div class="cost-flag eq">Sem comparação de custo disponível</div>';
-    if(rep !== null && med !== null && rep !== undefined && med !== undefined){
-      if(rep > med){
-        flag = '<div class="cost-flag bad">▲ Reposição acima do custo médio (+'+fmtBRL(rep-med)+')</div>';
-      } else if(rep < med){
-        flag = '<div class="cost-flag ok">▼ Reposição abaixo do custo médio ('+fmtBRL(rep-med)+')</div>';
-      } else {
-        flag = '<div class="cost-flag eq">＝ Reposição igual ao custo médio</div>';
-      }
+  function buscarPorNome(termo){
+    var t=normTxt(termo).trim(); if(t.length<2)return[];
+    var partes=t.split(/\s+/), res=[];
+    for(var i=0;i<produtos.length&&res.length<25;i++){
+      var nome=normTxt(produtos[i].nome), bate=true;
+      for(var j=0;j<partes.length;j++){if(nome.indexOf(partes[j])===-1){bate=false;break;}}
+      if(bate)res.push(produtos[i]);
     }
-    var idLinha = [];
-    if(p.ean) idLinha.push('EAN ' + p.ean);
-    if(p.codigo_sistema) idLinha.push('Cód ' + p.codigo_sistema);
-    if(p.id_interno) idLinha.push('ID ' + p.id_interno);
+    return res;
+  }
 
-    elResult.innerHTML =
-      '<div class="card">' +
-        '<h2>' + escapeHtml(p.nome) + '</h2>' +
-        '<div class="ids">' + escapeHtml(idLinha.join('  •  ')) + '</div>' +
-        '<div class="grid">' +
-          cell('Estoque atual', fmtNum(p.estoque)) +
-          cell('Venda média/mês', fmtNum(p.venda_media_mensal)) +
-          cell('Custo médio', fmtBRL(med)) +
-          cell('Custo reposição', fmtBRL(rep)) +
-          cellWide('Preço de venda', fmtBRL(p.preco_venda)) +
-          flag +
-        '</div>' +
-      '</div>';
+  function coberturaInfo(p){
+    var v=p.venda_media_mensal,e=p.estoque;
+    if(!v||v<=0)return null;
+    return {meses:e/v, txt:fmtNum(e/v)+' meses'};
+  }
 
+  function renderProduto(p){
+    var rep=p.custo_reposicao, med=p.custo_medio, flags='';
+    if(rep!=null&&med!=null){
+      if(rep>med) flags+='<div class="flag bad">▲ Reposição acima do custo médio (+'+fmtBRL(rep-med)+')</div>';
+      else if(rep<med) flags+='<div class="flag ok">▼ Reposição abaixo do custo médio ('+fmtBRL(rep-med)+')</div>';
+      else flags+='<div class="flag eq">＝ Reposição igual ao custo médio</div>';
+    }
+    var cob=coberturaInfo(p), cobVal='—', cobCls='';
+    if(cob){ cobVal=cob.txt;
+      if(cob.meses<1){cobCls='bad'; flags+='<div class="flag bad">⚠ Estoque baixo: cobre menos de 1 mês</div>';}
+      else if(cob.meses<2)cobCls='warn'; else cobCls='ok';
+    }
+    var idLinha=[];
+    if(p.ean)idLinha.push('EAN '+p.ean);
+    if(p.codigo_sistema)idLinha.push('Cód '+p.codigo_sistema);
+    if(p.id_interno)idLinha.push('ID '+p.id_interno);
+
+    elResult.innerHTML='<div class="card"><h2>'+escapeHtml(p.nome)+'</h2>'+
+      '<div class="ids">'+escapeHtml(idLinha.join('  •  '))+'</div><div class="grid">'+
+      cell('Estoque atual',fmtNum(p.estoque))+
+      cell('Venda média/mês',fmtNum(p.venda_media_mensal))+
+      cell('Cobertura',cobVal,cobCls)+
+      cell('Preço de venda',fmtBRL(p.preco_venda))+
+      cell('Custo médio',fmtBRL(med))+
+      cell('Custo reposição',fmtBRL(rep))+
+      flags+'</div></div>';
     addHistorico(p);
   }
+  function cell(lbl,val,cls){return '<div class="cell"><div class="lbl">'+lbl+
+    '</div><div class="val'+(cls?(' '+cls):'')+'">'+val+'</div></div>';}
 
-  function cell(lbl,val){ return '<div class="cell"><div class="lbl">'+lbl+'</div><div class="val">'+val+'</div></div>'; }
-  function cellWide(lbl,val){ return '<div class="cell wide"><div class="lbl">'+lbl+'</div><div class="val">'+val+'</div></div>'; }
-
-  function renderNaoEncontrado(codigo){
-    elResult.innerHTML =
-      '<div class="notfound">Produto não encontrado na base' +
-      '<span class="code">' + escapeHtml(codigo) + '</span></div>';
+  function renderNaoEncontrado(c){
+    elResult.innerHTML='<div class="notfound">Produto não encontrado na base'+
+      '<span class="code">'+escapeHtml(c)+'</span></div>';
+  }
+  function mostrarResultado(p,bruto){
+    if(p){feedback(true);setStatus('Encontrado: '+p.nome);renderProduto(p);}
+    else{feedback(false);setStatus('Código não cadastrado.');renderNaoEncontrado(bruto);}
   }
 
-  function escapeHtml(s){
-    return String(s == null ? '' : s)
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  }
-
-  // ---- Histórico (últimos 3) ----
   function addHistorico(p){
-    historico.unshift({nome:p.nome, preco:p.preco_venda});
-    historico = historico.slice(0,3);
-    renderHistorico();
+    historico.unshift({nome:p.nome,preco:p.preco_venda});
+    historico=historico.slice(0,3); renderHistorico();
   }
   function renderHistorico(){
-    if(!historico.length){ elHist.innerHTML = '<div class="empty">Nenhuma consulta ainda.</div>'; return; }
-    elHist.innerHTML = historico.map(function(h){
+    if(!historico.length){elHist.innerHTML='<div class="empty">Nenhuma consulta ainda.</div>';return;}
+    elHist.innerHTML=historico.map(function(h){
       return '<div class="hist-item"><span class="hname">'+escapeHtml(h.nome)+
-             '</span><span class="hprice">'+fmtBRL(h.preco)+'</span></div>';
-    }).join('');
+        '</span><span class="hprice">'+fmtBRL(h.preco)+'</span></div>';}).join('');
   }
 
-  // ---- Scanner ----
-  function onScan(decodedText){
-    if(pausado) return;
-    pausado = true;
-    if(scanner){ try{ scanner.pause(true); }catch(e){} }
+  function renderMatches(lista){
+    if(!lista.length){elMatch.innerHTML='';return;}
+    elMatch.innerHTML=lista.map(function(p,i){
+      return '<div class="match" data-i="'+i+'"><span class="mn">'+escapeHtml(p.nome)+
+        '</span><span class="mp">'+fmtBRL(p.preco_venda)+'</span></div>';}).join('');
+    Array.prototype.forEach.call(elMatch.querySelectorAll('.match'),function(el){
+      el.addEventListener('click',function(){var p=lista[+el.getAttribute('data-i')];
+        elMatch.innerHTML=''; mostrarResultado(p,p.nome);});
+    });
+  }
 
-    var p = buscar(decodedText);
-    if(p){
-      setStatus('Encontrado: ' + p.nome);
-      renderProduto(p);
+  function executarBusca(){
+    var termo=elInput.value.trim(); if(!termo)return;
+    if(/^\d{4,}$/.test(termo)){
+      var p=buscarPorCodigo(termo); elMatch.innerHTML='';
+      mostrarResultado(p,termo); elInput.value=''; elInput.focus();
     } else {
-      setStatus('Código não cadastrado.');
-      renderNaoEncontrado(decodedText);
+      var lista=buscarPorNome(termo);
+      if(lista.length===1){elMatch.innerHTML='';mostrarResultado(lista[0],termo);}
+      else{renderMatches(lista); if(!lista.length)setStatus('Nenhum produto com esse nome.');}
     }
-    // retoma após 2s, pronto para o próximo bip
-    setTimeout(function(){
-      pausado = false;
-      if(scanner && scanning){ try{ scanner.resume(); }catch(e){} }
-      setStatus('Pronto para o próximo código…');
-    }, 2000);
   }
 
-  function iniciarCamera(){
-    if(scanning) return;
-    if(!produtos.length){ setStatus('Dados ainda não carregados.'); return; }
+  function iniciarScan(){
+    if(scanning||!produtos.length)return;
     elReader.classList.remove('idle');
-    scanner = new Html5Qrcode("reader", { verbose:false });
-    var config = {
-      fps: 15,
-      qrbox: function(w,h){ var m = Math.floor(Math.min(w,h)*0.82); return {width:m, height:Math.floor(m*0.55)}; },
-      aspectRatio: 1.0,
-      formatsToSupport: [ Html5QrcodeSupportedFormats.EAN_13 ]
-    };
-    setStatus('Abrindo câmera…', true);
-    scanner.start({ facingMode: "environment" }, config, onScan, function(){/* ignora erros de frame */})
-      .then(function(){
-        scanning = true;
-        elStart.textContent = 'Parar câmera';
-        setStatus('Aponte para o código de barras.');
-      })
-      .catch(function(err){
-        elReader.classList.add('idle');
-        setStatus('Não foi possível abrir a câmera: ' + err);
-      });
+    scanner=new Html5Qrcode("reader",{verbose:false});
+    var config={fps:15,
+      qrbox:function(w,h){var m=Math.floor(Math.min(w,h)*0.82);return {width:m,height:Math.floor(m*0.55)};},
+      aspectRatio:1.0, formatsToSupport:[Html5QrcodeSupportedFormats.EAN_13]};
+    setStatus('Abrindo câmera…',true);
+    scanner.start({facingMode:"environment"},config,onScanLive,function(){})
+      .then(function(){scanning=true;elCamAction.textContent='Parar câmera';setStatus('Aponte para o código.');})
+      .catch(function(err){elReader.classList.add('idle');setStatus('Não foi possível abrir a câmera: '+err);});
+  }
+  function onScanLive(txt){
+    if(pausado)return; pausado=true;
+    if(scanner){try{scanner.pause(true);}catch(e){}}
+    mostrarResultado(buscarPorCodigo(txt),txt);
+    setTimeout(function(){pausado=false;
+      if(scanner&&scanning){try{scanner.resume();}catch(e){}}
+      setStatus('Pronto para o próximo código…');},2000);
+  }
+  function pararScan(cb){
+    if(scanner&&scanning){
+      scanner.stop().then(function(){try{scanner.clear();}catch(e){}
+        scanning=false;pausado=false;elReader.classList.add('idle');
+        elCamAction.textContent='Iniciar câmera'; if(cb)cb();});
+    } else if(cb)cb();
   }
 
-  function pararCamera(){
-    if(scanner && scanning){
-      scanner.stop().then(function(){
-        try{ scanner.clear(); }catch(e){}
-        scanning = false; pausado = false;
-        elReader.classList.add('idle');
-        elStart.textContent = 'Iniciar câmera';
-        setStatus('Câmera parada.');
-      });
+  function analisarFoto(file){
+    if(!produtos.length){setStatus('Dados não carregados.');return;}
+    setStatus('Analisando foto…',true);
+    var tmp=new Html5Qrcode("photo-scan",{verbose:false});
+    tmp.scanFileV2(file,false)
+      .then(function(res){var txt=(res&&res.decodedText)?res.decodedText:'';
+        try{tmp.clear();}catch(e){} mostrarResultado(buscarPorCodigo(txt),txt);})
+      .catch(function(){try{tmp.clear();}catch(e){}
+        feedback(false);
+        setStatus('Nenhum código encontrado na foto. Reenquadre e tente de novo.');});
+  }
+
+  function setModo(novo){
+    if(novo===modo)return;
+    if(modo==='scan')pararScan();
+    modo=novo;
+    Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(t){
+      t.classList.toggle('active',t.getAttribute('data-mode')===novo);});
+    panelType.classList.toggle('hidden',novo!=='type');
+    panelCam.classList.toggle('hidden',novo==='type');
+    if(novo==='scan'){
+      elReader.classList.remove('hidden');
+      elCamAction.classList.remove('hidden'); elCapture.classList.add('hidden');
+      elCamHint.textContent='Leitura contínua. Boa para códigos próximos e nítidos.';
+      setStatus('Toque em "Iniciar câmera".');
+    } else if(novo==='photo'){
+      pararScan(); elReader.classList.add('hidden');
+      elCamAction.classList.add('hidden'); elCapture.classList.remove('hidden');
+      elCamHint.textContent='Tira uma foto nítida a uma distância confortável e analisa. Boa quando o foco contínuo falha.';
+      setStatus('Toque em "Tirar foto do código".');
+    } else {
+      setStatus(''); setTimeout(function(){elInput.focus();},100);
     }
   }
 
-  elStart.addEventListener('click', function(){
-    if(scanning) pararCamera(); else iniciarCamera();
-  });
-  elRefresh.addEventListener('click', function(){
-    carregarDados();
-  });
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(t){
+    t.addEventListener('click',function(){setModo(t.getAttribute('data-mode'));});});
+  $("btn-search").addEventListener('click',executarBusca);
+  elInput.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();executarBusca();}});
+  elInput.addEventListener('input',function(){
+    var v=elInput.value.trim();
+    if(v.length>=2&&!/^\d+$/.test(v))renderMatches(buscarPorNome(v)); else elMatch.innerHTML='';});
+  elCamAction.addEventListener('click',function(){if(scanning)pararScan();else iniciarScan();});
+  elCapture.addEventListener('click',function(){elFile.click();});
+  elFile.addEventListener('change',function(){if(elFile.files&&elFile.files[0])analisarFoto(elFile.files[0]);elFile.value='';});
+  $("btn-refresh").addEventListener('click',carregarDados);
 
+  carregarOffline();
   carregarDados();
+  setModo('type');
 })();
 </script>
 </body>
